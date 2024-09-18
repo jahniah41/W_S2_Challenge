@@ -2,30 +2,126 @@
 <html lang="en">
 
 <head>
+  <meta charset="utf-8">
   <title>Web Sprint 2 Challenge</title>
   <script id="challenge">
     // 👉 CHALLENGE 1
     function profileActivation(profile, reason) {
+      
+      if (profile.active) {
 
+        if (reason === undefined) {
+            return "confirm status manually";
+        }
+     
+        profile.active = false;
+        profile.reason = reason;
+    } else {
+       
+        profile.active = true;
+        delete profile.reason;
     }
+    
+    return profile;
+}
 
-    // 👉 CHALLENGE 2
+
+let testProfile1 = {
+    active: false,
+    reason: "Not logged in for 30 days"
+};
+
+let result1 = profileActivation(testProfile1);
+console.log(result1); 
+
+let testProfile2 = {
+    active: true,
+    reason: undefined
+};
+
+let result2 = profileActivation(testProfile2, "Not logged in for 30 days");
+console.log(result2);
+
+let testProfile3 = {
+    active: true,
+    reason: undefined
+};
+
+let result3 = profileActivation(testProfile3);
+console.log(result3); 
+      
+
+      // 👉 CHALLENGE 2
     function mineSweeper(grid, x, y) {
-
+      
+      if (x < 1 || x > 3 || y < 1 || y > 3) {
+        return "invalid coordinates";
     }
+
+    const adjustedX = x - 1;
+    const adjustedY = y - 1;
+
+    const cellValue = grid[adjustedY][adjustedX];
+
+    if (cellValue === "🟥") {
+        return "🟥 💀"; 
+    } else if (cellValue === "🟦") {
+        return "🟦 🥳";
+    }
+}
+    
 
     // 👉 CHALLENGE 3
     function booleanize(obj) {
 
+      for (const key in obj) {
+        if (key.length > 9) {
+            return "shorten all prop names to 9 chars or less";
+        }
     }
 
-    // 👉 CHALLENGE 4
+
+    for (const key in obj) {
+        const value = obj[key];
+
+        if (value === null) {
+
+            delete obj[key];
+        } else if (value === 0) {
+            obj[key] = false;
+        } else if (value === 1) {
+            obj[key] = true;
+        }
+    }
+
+    return obj;
+}
+    
     function scrub(text, forbidden) {
-
+      if (text === "" || forbidden.length === 0) {
+        return text;
     }
+
+    const words = text.split(" ");
+    
+    
+    const scrubbedWords = words.map(word => {
+       
+        if (forbidden.includes(word)) {
+          
+            return "x".repeat(word.length);
+        }
+        return word
+    });
+
+    return scrubbedWords.join(" ");
+}
+
+    
 
     // 👉 CHALLENGE 5 (bonus, NOT graded)
     function normalizePhoneNumber(num) {
+      
 
     }
 
